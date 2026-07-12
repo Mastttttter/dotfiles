@@ -1,8 +1,8 @@
 local vars = require("variables")
-local fn   = require("hyprland.functions")
+local fn = require("hyprland.functions")
 
 -- Launcher
-hl.bind("SUPER + SUPER_L", hl.dsp.global("caelestia:launcher"), { release = true })
+hl.bind("SUPER + Space", hl.dsp.global("caelestia:launcher"), { locked = true })
 
 -- Misc
 hl.bind(vars.kbSession, hl.dsp.global("caelestia:session"))
@@ -81,15 +81,20 @@ hl.bind(vars.kbToggleGroup, hl.dsp.group.toggle())
 hl.bind(vars.kbUngroup, hl.dsp.window.move({ out_of_group = true }))
 hl.bind("SUPER + SHIFT + Comma", hl.dsp.group.lock_active())
 
+-- Move window to/from special workspace
+hl.bind("CTRL + SUPER + SHIFT + up", hl.dsp.window.move({ workspace = "special:special" }))
+hl.bind("CTRL + SUPER + SHIFT + down", hl.dsp.window.move({ workspace = "e+0" }))
+hl.bind("SUPER + ALT + S", hl.dsp.window.move({ workspace = "special:special" }))
+
 -- Window actions
-hl.bind("SUPER + left", hl.dsp.focus({ direction = "left" }))
-hl.bind("SUPER + right", hl.dsp.focus({ direction = "right" }))
-hl.bind("SUPER + up", hl.dsp.focus({ direction = "up" }))
-hl.bind("SUPER + down", hl.dsp.focus({ direction = "down" }))
-hl.bind("SUPER + SHIFT + left", hl.dsp.window.move({ direction = "left" }))
-hl.bind("SUPER + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
-hl.bind("SUPER + SHIFT + up", hl.dsp.window.move({ direction = "up" }))
-hl.bind("SUPER + SHIFT + down", hl.dsp.window.move({ direction = "down" }))
+hl.bind("SUPER + h", hl.dsp.focus({ direction = "left" }))
+hl.bind("SUPER + l", hl.dsp.focus({ direction = "right" }))
+hl.bind("SUPER + k", hl.dsp.focus({ direction = "up" }))
+hl.bind("SUPER + j", hl.dsp.focus({ direction = "down" }))
+hl.bind("SUPER + SHIFT + h", hl.dsp.window.move({ direction = "left" }))
+hl.bind("SUPER + SHIFT + l", hl.dsp.window.move({ direction = "right" }))
+hl.bind("SUPER + SHIFT + k", hl.dsp.window.move({ direction = "up" }))
+hl.bind("SUPER + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
 hl.bind("SUPER + Minus", hl.dsp.window.resize(fn.resize_active_window(-10, 0)), { repeating = true })
 hl.bind("SUPER + Equal", hl.dsp.window.resize(fn.resize_active_window(10, 0)), { repeating = true })
 hl.bind("SUPER + SHIFT + Minus", hl.dsp.window.resize(fn.resize_active_window(0, -10)), { repeating = true })
@@ -110,7 +115,9 @@ hl.bind(vars.kbWindowPip, function()
     local a = hl.get_active_window()
     if a then
         local pip = fn.move_actions(a) or {}
-        if not a.floating then table.insert(pip, 1, hl.dsp.window.float()) end
+        if not a.floating then
+            table.insert(pip, 1, hl.dsp.window.float())
+        end
         table.insert(pip, hl.dsp.window.pin({ action = "on", window = "address:" .. a.address }))
 
         for _, x in ipairs(pip) do
@@ -154,8 +161,11 @@ hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK
 hl.bind(
     "XF86AudioRaiseVolume",
     hl.dsp.exec_cmd(
-        "wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l " ..
-        (vars.volumeMax / 100) .. " @DEFAULT_AUDIO_SINK@ " .. vars.volumeStep .. "%+"
+        "wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l "
+            .. (vars.volumeMax / 100)
+            .. " @DEFAULT_AUDIO_SINK@ "
+            .. vars.volumeStep
+            .. "%+"
     ),
     { locked = true, repeating = true }
 )
@@ -184,8 +194,9 @@ hl.bind(
 hl.bind(
     "SUPER + ALT + F12",
     hl.dsp.exec_cmd(
-        "notify-send -u low -i dialog-information-symbolic 'Test notification' " ..
-        [["Here's a really long message to test truncation and wrapping\nYou can middle click or flick this notification to dismiss it!"]] ..
-        " -a 'Shell' -A 'Test1=I got it!' -A 'Test2=Another action'"
+        "notify-send -u low -i dialog-information-symbolic 'Test notification' "
+            .. [["Here's a really long message to test truncation and wrapping\nYou can middle click or flick this notification to dismiss it!"]]
+            .. " -a 'Shell' -A 'Test1=I got it!' -A 'Test2=Another action'"
     )
 )
+hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("systemctl --user restart pipewire wireplumber pipewire-pulse"))

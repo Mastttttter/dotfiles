@@ -1,10 +1,11 @@
 local vars = require("variables")
-local fn   = require("hyprland.functions")
+local fn = require("hyprland.functions")
 
 hl.on("hyprland.start", function()
     -- Keyring and auth
     hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
     hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
+    hl.exec_cmd("systemctl --user start hyprpolkitagent")
 
     -- Clipboard history
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
@@ -24,6 +25,12 @@ hl.on("hyprland.start", function()
 
     -- Forward bluetooth media commands to MPRIS
     hl.exec_cmd("mpris-proxy")
+
+    -- Input method
+    hl.exec_cmd("fcitx5")
+
+    -- Machine-specific mounts
+    hl.exec_cmd("sudo bash /home/master/toolshs/mount.sh")
 
     -- Start shell
     hl.exec_cmd("caelestia shell -d")
