@@ -105,11 +105,6 @@ create_bind(vars.kbToggleGroup, hl.dsp.group.toggle())
 create_bind(vars.kbUngroup, hl.dsp.window.move({ out_of_group = true }))
 create_bind(vars.kbGroupLockActive, hl.dsp.group.lock())
 
--- Move window to/from special workspace
-hl.bind("CTRL + SUPER + SHIFT + up", hl.dsp.window.move({ workspace = "special:special" }))
-hl.bind("CTRL + SUPER + SHIFT + down", hl.dsp.window.move({ workspace = "e+0" }))
-hl.bind("SUPER + ALT + S", hl.dsp.window.move({ workspace = "special:special" }))
-
 -- Window actions
 for _, dir in ipairs({ "h", "l", "k", "j" }) do
     create_bind("SUPER + " .. dir, hl.dsp.focus({ direction = dir }))
