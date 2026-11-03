@@ -1,5 +1,5 @@
-local home   = os.getenv("HOME")
-local hypr   = home .. "/.config/hypr"
+local home = os.getenv("HOME")
+local hypr = home .. "/.config/hypr"
 package.path = package.path .. ";" .. home .. "/.config/caelestia/?.lua"
 
 -- Create a file if it doesn't exist, optionally with initial content
@@ -12,9 +12,13 @@ local function maybe_create(file, content)
     end
 
     f = io.open(file, "w")
-    if not f then return false end
+    if not f then
+        return false
+    end
 
-    if content then f:write(content) end
+    if content then
+        f:write(content)
+    end
     f:close()
     return true
 end
@@ -28,7 +32,9 @@ local function maybe_copy(src, dst)
     end
 
     local input = io.open(src, "r")
-    if not input then return end
+    if not input then
+        return
+    end
 
     out = io.open(dst, "w")
     if out then
@@ -42,10 +48,7 @@ end
 maybe_copy(hypr .. "/scheme/default.lua", hypr .. "/scheme/current.lua")
 
 -- User variables
-local overrides = maybe_create(
-    home .. "/.config/caelestia/hypr-vars.lua",
-    "return {}\n"
-) and require("hypr-vars") or {}
+local overrides = maybe_create(home .. "/.config/caelestia/hypr-vars.lua", "return {}\n") and require("hypr-vars") or {}
 
 if type(overrides) == "table" then
     local vars = require("variables")
@@ -54,12 +57,12 @@ if type(overrides) == "table" then
     end
 end
 
--- Default monitor conf
+-- Local monitor conf
 hl.monitor({
-    output   = "",
-    mode     = "preferred",
+    output = "DP-3",
+    mode = "3840x2160@144.00",
     position = "auto",
-    scale    = 1,
+    scale = 1.5,
 })
 
 -- Configs

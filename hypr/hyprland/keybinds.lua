@@ -1,12 +1,11 @@
 local vars = require("variables")
-local fn   = require("utils.functions")
-
+local fn = require("utils.functions")
 
 -- Flags
-local locked           = { locked = true }
-local mouse            = { mouse = true }
-local release          = { release = true }
-local repeating        = { repeating = true }
+local locked = { locked = true }
+local mouse = { mouse = true }
+local release = { release = true }
+local repeating = { repeating = true }
 local locked_repeating = { locked = true, repeating = true }
 
 local function normalise_keybind(key)
@@ -50,14 +49,10 @@ local function extend_keybind(base, suffix)
 end
 
 -- Launcher
-local launcher_default = normalise_keybind("SUPER + SUPER_L")
-create_bind(
-    vars.kbLauncher,
-    hl.dsp.global("caelestia:launcher"),
-    function(key)
-        return normalise_keybind(key) == launcher_default and release or nil
-    end
-)
+local launcher_default = normalise_keybind("SUPER + Space")
+create_bind(vars.kbLauncher, hl.dsp.global("caelestia:launcher"), function(key)
+    return normalise_keybind(key) == launcher_default and release or nil
+end)
 
 -- Misc
 create_bind(vars.kbSession, hl.dsp.global("caelestia:session"))
@@ -110,11 +105,24 @@ create_bind(vars.kbToggleGroup, hl.dsp.group.toggle())
 create_bind(vars.kbUngroup, hl.dsp.window.move({ out_of_group = true }))
 create_bind(vars.kbGroupLockActive, hl.dsp.group.lock())
 
+-- Move window to/from special workspace
+hl.bind("CTRL + SUPER + SHIFT + up", hl.dsp.window.move({ workspace = "special:special" }))
+hl.bind("CTRL + SUPER + SHIFT + down", hl.dsp.window.move({ workspace = "e+0" }))
+hl.bind("SUPER + ALT + S", hl.dsp.window.move({ workspace = "special:special" }))
+
 -- Window actions
-for _, dir in ipairs({ "left", "right", "up", "down" }) do
+for _, dir in ipairs({ "h", "l", "k", "j" }) do
     create_bind("SUPER + " .. dir, hl.dsp.focus({ direction = dir }))
     create_bind("SUPER + SHIFT + " .. dir, hl.dsp.window.move({ direction = dir }))
 end
+hl.bind("SUPER + Minus", hl.dsp.window.resize(fn.resize_active_window(-10, 0)), { repeating = true })
+hl.bind("SUPER + Equal", hl.dsp.window.resize(fn.resize_active_window(10, 0)), { repeating = true })
+hl.bind("SUPER + SHIFT + Minus", hl.dsp.window.resize(fn.resize_active_window(0, -10)), { repeating = true })
+hl.bind("SUPER + SHIFT + Equal", hl.dsp.window.resize(fn.resize_active_window(0, 10)), { repeating = true })
+hl.bind("SUPER + ALT + left", hl.dsp.window.resize(fn.resize_active_window(-10, 0)), { repeating = true })
+hl.bind("SUPER + ALT + right", hl.dsp.window.resize(fn.resize_active_window(10, 0)), { repeating = true })
+hl.bind("SUPER + ALT + up", hl.dsp.window.resize(fn.resize_active_window(0, -10)), { repeating = true })
+hl.bind("SUPER + ALT + down", hl.dsp.window.resize(fn.resize_active_window(0, 10)), { repeating = true })
 
 create_bind(vars.kbWindowDecreaseWidth, fn.resize_active_window(-10, 0), repeating)
 create_bind(vars.kbWindowIncreaseWidth, fn.resize_active_window(10, 0), repeating)
@@ -132,7 +140,9 @@ create_bind(vars.kbWindowPip, function()
     local a = hl.get_active_window()
     if a then
         local pip = fn.move_actions(a) or {}
-        if not a.floating then table.insert(pip, 1, hl.dsp.window.float()) end
+        if not a.floating then
+            table.insert(pip, 1, hl.dsp.window.float())
+        end
         table.insert(pip, hl.dsp.window.pin({ action = "on", window = "address:" .. a.address }))
 
         for _, x in ipairs(pip) do
@@ -180,13 +190,20 @@ create_bind({ vars.kbMediaPrev, "XF86AudioPrev" }, hl.dsp.global("caelestia:medi
 create_bind({ vars.kbMediaStop, "XF86AudioStop" }, hl.dsp.global("caelestia:mediaStop"), locked)
 
 -- Volume
-create_bind({ vars.kbVolumeMute, "XF86AudioMute" }, hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), locked)
+create_bind(
+    { vars.kbVolumeMute, "XF86AudioMute" },
+    hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+    locked
+)
 create_bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), locked)
 create_bind(
     "XF86AudioRaiseVolume",
     hl.dsp.exec_cmd(
-        "wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l " ..
-        (vars.volumeMax / 100) .. " @DEFAULT_AUDIO_SINK@ " .. vars.volumeStep .. "%+"
+        "wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l "
+            .. (vars.volumeMax / 100)
+            .. " @DEFAULT_AUDIO_SINK@ "
+            .. vars.volumeStep
+            .. "%+"
     ),
     locked_repeating
 )
@@ -215,8 +232,9 @@ create_bind(
 create_bind(
     "SUPER + ALT + F12",
     hl.dsp.exec_cmd(
-        "notify-send -u low -i dialog-information-symbolic 'Test notification' " ..
-        [["Here's a really long message to test truncation and wrapping\nYou can middle click or flick this notification to dismiss it!"]] ..
-        " -a 'Shell' -A 'Test1=I got it!' -A 'Test2=Another action'"
+        "notify-send -u low -i dialog-information-symbolic 'Test notification' "
+            .. [["Here's a really long message to test truncation and wrapping\nYou can middle click or flick this notification to dismiss it!"]]
+            .. " -a 'Shell' -A 'Test1=I got it!' -A 'Test2=Another action'"
     )
 )
+hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("systemctl --user restart pipewire wireplumber pipewire-pulse"))

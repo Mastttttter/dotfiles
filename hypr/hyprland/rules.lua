@@ -34,7 +34,6 @@ local music_player_tag = "music_player"
 local communication_app_tag = "communication_app"
 local todo_app_tag = "todo_app"
 
-
 ----------------------
 ---- Window rules ----
 ----------------------
@@ -47,13 +46,12 @@ hl.window_rule({ match = { float = true, xwayland = false }, center = true })
 
 -- Picture in picture (move and resize done via resizer in execs.lua)
 hl.window_rule({
-    match             = { title = "Picture(-| )in(-| )[Pp]icture" },
-    move              = "(monitor_w*0.98-window_w) (monitor_h*0.97-window_h)", -- Initial move so window doesn't jump so much
-    pin               = true,
-    float             = true,
+    match = { title = "Picture(-| )in(-| )[Pp]icture" },
+    move = "(monitor_w*0.98-window_w) (monitor_h*0.97-window_h)", -- Initial move so window doesn't jump so much
+    pin = true,
+    float = true,
     keep_aspect_ratio = true,
 })
-
 
 ----------------------
 ---- Tagged rules ----
@@ -61,40 +59,38 @@ hl.window_rule({
 
 -- Opaque apps
 tagged_rule(opaque_tag, {
-    "foot",                          -- Terminal
-    "equibop",                       -- Discord client
-    "org.quickshell",                -- Quickshell
-    "feh|imv|swappy",                -- Image viewers
+    "foot", -- Terminal
+    "equibop", -- Discord client
+    "org.quickshell", -- Quickshell
+    "feh|imv|swappy", -- Image viewers
     "krita|gimp|inkscape|darktable", -- Image editors
-    "resolve|kdenlive|shotcut",      -- Video editors
-    "blender|godot",                 -- 3D editors
+    "resolve|kdenlive|shotcut", -- Video editors
+    "blender|godot", -- 3D editors
 }, "class")
-
 
 -- Floating apps
 tagged_rule(float_tag, {
-    "guifetch",                           -- System info
-    "yad|zenity",                         -- Dialogs
-    "wev",                                -- Input detector
-    "org.gnome.FileRoller|file-roller",   -- Archive manager
-    "blueman-manager",                    -- Bluetooth GUI
+    "guifetch", -- System info
+    "yad|zenity", -- Dialogs
+    "wev", -- Input detector
+    "org.gnome.FileRoller|file-roller", -- Archive manager
+    "blueman-manager", -- Bluetooth GUI
     "com.github.GradienceTeam.Gradience", -- GTK themer (deprecated)
-    "feh|imv|swappy",                     -- Image viewers
-    "org.quickshell",                     -- Quickshell
+    "feh|imv|swappy", -- Image viewers
+    "org.quickshell", -- Quickshell
 }, "class")
 tagged_rule(float_tag, {
     "File (Operation|Upload)( Progress)?", -- File manager operation progress (upload, move, copy, etc)
-    ".* Properties",                       -- File properties
-    'Rename ".*"',                         -- File renaming
+    ".* Properties", -- File properties
+    'Rename ".*"', -- File renaming
 }, "title")
-
 
 -- Sized floaters
 -- 60% x 70%
 tagged_rule(float_60_70_tag, {
     "(Select|Open)( a)? (File|Folder)(s)?", -- File dialogs
-    "Save As",                              -- Save dialogs
-    "Library",                              -- * I don't remember what this matches...
+    "Save As", -- Save dialogs
+    "Library", -- * I don't remember what this matches...
 }, "title")
 tagged_rule(float_60_70_tag, {
     { title = "(Save|Export) Image", class = "gimp" }, -- GIMP export/save
@@ -104,7 +100,7 @@ tagged_rule(float_60_70_tag, {
 })
 tagged_rule(float_60_70_tag, {
     "org.pulseaudio.pavucontrol|com.saivert.pwvucontrol", -- Audio control
-    "yad-icon-browser",                                   -- GTK icon browser
+    "yad-icon-browser", -- GTK icon browser
 }, "class")
 
 -- 70% x 80%
@@ -114,45 +110,41 @@ tagged_rule(float_70_80_tag, {
 
 -- 50% x 60%
 tagged_rule(float_50_60_tag, {
-    "nwg-look",              -- GTK theme manager
+    "nwg-look", -- GTK theme manager
     "system-config-printer", -- Printer config
 }, "class")
 
-
 -- Games
 tagged_rule(game_tag, {
-    "steam_app_[0-9]+",  -- Steam games
+    "steam_app_[0-9]+", -- Steam games
     "steam_app_default", -- Lutris games
-    "gamescope",         -- Gamescope
+    "gamescope", -- Gamescope
 }, "class")
-
 
 -- Xwayland popups
 tagged_rule(xwl_popup_tag, {
     { xwayland = true, title = "win[0-9]+" },
-    { xwayland = true, title = "",         class = "", initial_title = "", initial_class = "" }
+    { xwayland = true, title = "", class = "", initial_title = "", initial_class = "" },
 })
-
 
 -- Special workspaces
 tagged_rule(system_monitor_tag, { "btop" }, "class")
 tagged_rule(music_player_tag, {
-    "feishin|Supersonic|Plexamp",                                  -- Self hosted
-    "Spotify",                                                     -- Spotify
-    "Cider",                                                       -- Apple music
+    "feishin|Supersonic|Plexamp", -- Self hosted
+    "Spotify", -- Spotify
+    "Cider", -- Apple music
     "com.github.th-ch.youtube-music|com-maxrave-simpmusic-MainKt", -- YouTube music
 }, "class")
 tagged_rule(music_player_tag, {
-    "Spotify|Spotify Free" -- Spotify wayland, it has no class for some reason
+    "Spotify|Spotify Free", -- Spotify wayland, it has no class for some reason
 }, "initial_title")
 tagged_rule(communication_app_tag, {
     "discord|equibop|vesktop", -- Discord clients
-    "whatsapp"                 -- Whatsapp
+    "whatsapp", -- Whatsapp
 }, "class")
 tagged_rule(todo_app_tag, {
-    "todoist" -- Todoist
+    "todoist", -- Todoist
 }, "class")
-
 
 -----------------------
 ---- Per app rules ----
@@ -171,9 +163,8 @@ hl.window_rule({ match = { class = "fusion360.exe", title = "Fusion360|(Marking 
 -- Minecraft launcher consoles
 tagged_rule(float_tag, {
     { class = "com-atlauncher-App", title = "ATLauncher Console" },
-    { class = "PandoraLauncher",    title = "Minecraft Game Output" },
+    { class = "PandoraLauncher", title = "Minecraft Game Output" },
 })
-
 
 -------------------------
 ---- Tag definitions ----
@@ -198,7 +189,6 @@ create_tag(music_player_tag, { workspace = "special:music" })
 create_tag(communication_app_tag, { workspace = "special:communication" })
 create_tag(todo_app_tag, { workspace = "special:todo" })
 
-
 -------------------------
 ---- Workspace rules ----
 -------------------------
@@ -206,15 +196,14 @@ create_tag(todo_app_tag, { workspace = "special:todo" })
 hl.workspace_rule({ workspace = "w[tv1]s[false]", gaps_out = vars.singleWindowGapsOut })
 hl.workspace_rule({ workspace = "f[1]s[false]", gaps_out = vars.singleWindowGapsOut })
 
-
 ---------------------
 ---- Layer rules ----
 ---------------------
 
-hl.layer_rule({ match = { namespace = "hyprpicker" }, animation = "fade" })                 -- Colour picker out animation
-hl.layer_rule({ match = { namespace = "logout_dialog" }, animation = "fade" })              -- wlogout
-hl.layer_rule({ match = { namespace = "selection" }, animation = "fade" })                  -- slurp
-hl.layer_rule({ match = { namespace = "wayfreeze" }, animation = "fade" })                  -- wayfreeze
+hl.layer_rule({ match = { namespace = "hyprpicker" }, animation = "fade" }) -- Colour picker out animation
+hl.layer_rule({ match = { namespace = "logout_dialog" }, animation = "fade" }) -- wlogout
+hl.layer_rule({ match = { namespace = "selection" }, animation = "fade" }) -- slurp
+hl.layer_rule({ match = { namespace = "wayfreeze" }, animation = "fade" }) -- wayfreeze
 hl.layer_rule({ match = { namespace = "launcher" }, animation = "popin 80%", blur = true }) -- Fuzzel
 
 -- Shell

@@ -1,10 +1,11 @@
 local vars = require("variables")
-local fn   = require("utils.functions")
+local fn = require("utils.functions")
 
 hl.on("hyprland.start", function()
     -- Keyring and auth
     hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
     hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
+    hl.exec_cmd("systemctl --user start hyprpolkitagent")
 
     -- Clipboard history
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
@@ -25,6 +26,12 @@ hl.on("hyprland.start", function()
     -- Forward bluetooth media commands to MPRIS
     hl.exec_cmd("mpris-proxy")
 
+    -- Input method
+    hl.exec_cmd("fcitx5")
+
+    -- Machine-specific mounts
+    hl.exec_cmd("sudo bash /home/master/toolshs/mount.sh")
+
     -- Start shell
     hl.exec_cmd("caelestia shell -d")
 end)
@@ -36,8 +43,12 @@ local function apply_resizer_rules(win)
             return w[field] and string.find(w[field], pattern, 1, exact)
         end
     end
-    local match_title = function(pattern, exact) return match_str(pattern, "title", exact) end
-    local match_class = function(pattern, exact) return match_str(pattern, "class", exact) end
+    local match_title = function(pattern, exact)
+        return match_str(pattern, "title", exact)
+    end
+    local match_class = function(pattern, exact)
+        return match_str(pattern, "class", exact)
+    end
 
     local match_tag = function(tag)
         return function(w)
@@ -57,9 +68,9 @@ local function apply_resizer_rules(win)
     local pip_actions = fn.move_actions(win) or {}
 
     -- Bitwarden
-    fn.resizer(win, match_class("Bitwarden", true), 20, 54, float_center)                                                -- Native app
+    fn.resizer(win, match_class("Bitwarden", true), 20, 54, float_center) -- Native app
     fn.resizer(win, match_title("^Extension: %(Bitwarden Password Manager%) %- Bitwarden", false), 20, 54, float_center) -- Firefox
-    fn.resizer(win, match_class("nngceckbapebfimnlniiiahkandclblb", true), 20, 54, float_center)                         -- Chromium
+    fn.resizer(win, match_class("nngceckbapebfimnlniiiahkandclblb", true), 20, 54, float_center) -- Chromium
 
     -- Picture in picture
     fn.resizer(win, match_title("^Picture[- ]in[- ][Pp]icture$", false), 0, 0, pip_actions)
@@ -73,7 +84,6 @@ end
 hl.on("window.class", apply_resizer_rules)
 hl.on("window.title", apply_resizer_rules)
 hl.on("window.open", apply_resizer_rules)
-
 
 -- Tag shenanigans, there is no way to only detect when a window's tags change
 local lastTags = {}
