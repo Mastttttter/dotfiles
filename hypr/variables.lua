@@ -95,6 +95,22 @@ return {
     kbEditor = "SUPER + C",
     kbFileExplorer = "SUPER + E",
 
+    -- Utilities
+    kbScreenshot = "Print",
+    kbScreenshotFreeze = "SUPER + SHIFT + S",
+    kbScreenshotRegion = "SUPER + SHIFT + ALT + S",
+    kbRecord = "CTRL + ALT + R",
+    kbRecordSound = "SUPER + ALT + R",
+    kbRecordRegion = "SUPER + SHIFT + ALT + R",
+    kbColorPicker = "SUPER + SHIFT + C",
+
+    -- Media
+    kbMediaToggle = "CTRL + SUPER + Space",
+    kbMediaNext = "CTRL + SUPER + Equal",
+    kbMediaPrev = "CTRL + SUPER + Minus",
+    kbMediaStop = "CTRL + SUPER + Backspace",
+    kbVolumeMute = "SUPER + SHIFT + M",
+
     -- Misc
     kbLauncher = "SUPER + Space",
     kbSession = "CTRL + ALT + Delete",
@@ -103,4 +119,10 @@ return {
     kbShowPanels = "SUPER + ALT + P",
     kbLock = "SUPER + Z",
     kbRestoreLock = "SUPER + ALT + L",
+
+    -- Clipboard and emoji picker
+    kbClipboard = "SUPER + V",
+    kbClipboardDel = "SUPER + ALT + V",
+    kbClipboardPasteLatest = "CTRL + SHIFT + ALT + V",
+    kbEmoji = "SUPER + Period",
 }
