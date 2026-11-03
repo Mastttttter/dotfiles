@@ -96,6 +96,7 @@ return {
     kbFileExplorer = "SUPER + E",
 
     -- Misc
+    kbLauncher = "SUPER + Space",
     kbSession = "CTRL + ALT + Delete",
     kbShowSidebar = "SUPER + N",
     kbClearNotifs = "CTRL + ALT + C",

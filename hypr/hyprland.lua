@@ -57,12 +57,20 @@ if type(overrides) == "table" then
     end
 end
 
+hl.monitor({
+    output = "DP-2",
+    mode = "1920x1080@180",
+    position = "auto",
+    scale = 1,
+})
+
 -- Local monitor conf
 hl.monitor({
-    output = "DP-3",
-    mode = "3840x2160@144.00",
+    output = "eDP-2",
+    mode = "1920x1080@180",
     position = "auto",
-    scale = 1.5,
+    mirror = "DP-2",
+    scale = 1,
 })
 
 -- Configs

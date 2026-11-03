@@ -106,18 +106,14 @@ create_bind(vars.kbUngroup, hl.dsp.window.move({ out_of_group = true }))
 create_bind(vars.kbGroupLockActive, hl.dsp.group.lock())
 
 -- Window actions
-for _, dir in ipairs({ "h", "l", "k", "j" }) do
-    create_bind("SUPER + " .. dir, hl.dsp.focus({ direction = dir }))
-    create_bind("SUPER + SHIFT + " .. dir, hl.dsp.window.move({ direction = dir }))
-end
-hl.bind("SUPER + Minus", hl.dsp.window.resize(fn.resize_active_window(-10, 0)), { repeating = true })
-hl.bind("SUPER + Equal", hl.dsp.window.resize(fn.resize_active_window(10, 0)), { repeating = true })
-hl.bind("SUPER + SHIFT + Minus", hl.dsp.window.resize(fn.resize_active_window(0, -10)), { repeating = true })
-hl.bind("SUPER + SHIFT + Equal", hl.dsp.window.resize(fn.resize_active_window(0, 10)), { repeating = true })
-hl.bind("SUPER + ALT + left", hl.dsp.window.resize(fn.resize_active_window(-10, 0)), { repeating = true })
-hl.bind("SUPER + ALT + right", hl.dsp.window.resize(fn.resize_active_window(10, 0)), { repeating = true })
-hl.bind("SUPER + ALT + up", hl.dsp.window.resize(fn.resize_active_window(0, -10)), { repeating = true })
-hl.bind("SUPER + ALT + down", hl.dsp.window.resize(fn.resize_active_window(0, 10)), { repeating = true })
+hl.bind("SUPER + h", hl.dsp.focus({ direction = "left" }))
+hl.bind("SUPER + l", hl.dsp.focus({ direction = "right" }))
+hl.bind("SUPER + k", hl.dsp.focus({ direction = "up" }))
+hl.bind("SUPER + j", hl.dsp.focus({ direction = "down" }))
+hl.bind("SUPER + SHIFT + h", hl.dsp.window.move({ direction = "left" }))
+hl.bind("SUPER + SHIFT + l", hl.dsp.window.move({ direction = "right" }))
+hl.bind("SUPER + SHIFT + k", hl.dsp.window.move({ direction = "up" }))
+hl.bind("SUPER + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
 
 create_bind(vars.kbWindowDecreaseWidth, fn.resize_active_window(-10, 0), repeating)
 create_bind(vars.kbWindowIncreaseWidth, fn.resize_active_window(10, 0), repeating)
