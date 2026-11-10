@@ -99,9 +99,9 @@ return {
     kbScreenshot = "Print",
     kbScreenshotFreeze = "SUPER + SHIFT + S",
     kbScreenshotRegion = "SUPER + SHIFT + ALT + S",
-    kbRecord = "CTRL + ALT + R",
-    kbRecordSound = "SUPER + ALT + R",
-    kbRecordRegion = "SUPER + SHIFT + ALT + R",
+    -- kbRecord = "CTRL + ALT + R",
+    -- kbRecordSound = "SUPER + ALT + R",
+    -- kbRecordRegion = "SUPER + SHIFT + ALT + R",
     kbColorPicker = "SUPER + SHIFT + C",
 
     -- Media

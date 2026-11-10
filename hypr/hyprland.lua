@@ -59,7 +59,7 @@ end
 
 hl.monitor({
     output = "DP-2",
-    mode = "1920x1080@180",
+    mode = "1920x1080@60",
     position = "auto",
     scale = 1,
 })
@@ -67,7 +67,7 @@ hl.monitor({
 -- Local monitor conf
 hl.monitor({
     output = "eDP-2",
-    mode = "1920x1080@180",
+    mode = "1920x1080@60",
     position = "auto",
     mirror = "DP-2",
     scale = 1,
