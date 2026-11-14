@@ -59,6 +59,8 @@ return {
     ------------------
 
     -- Workspaces
+    kbMoveWinToWsSpecial = { "SUPER + SHIFT + S" },
+    kbMoveWinFromWsSpecial = "CTRL + SUPER + SHIFT + Down",
     kbMoveWinToWs = "SUPER + SHIFT",
     kbMoveWinToWsGroup = "CTRL + SUPER + SHIFT",
     kbGoToWs = "SUPER",
@@ -86,8 +88,11 @@ return {
     kbSpecialWs = "SUPER + S",
     kbSystemMonitorWs = "CTRL + SHIFT + Escape",
     kbMusicWs = "SUPER + M",
+    kbMoveWinToWsMusic = "SUPER + SHIFT + M",
     kbCommunicationWs = "SUPER + D",
+    kbMoveWinToWsCommunication = "SUPER + SHIFT + D",
     kbTodoWs = "SUPER + R",
+    kbMoveWinToWsTodo = "SUPER + SHIFT + R",
 
     -- Apps
     kbTerminal = "SUPER + Return",
@@ -97,7 +102,7 @@ return {
 
     -- Utilities
     kbScreenshot = "Print",
-    kbScreenshotFreeze = "SUPER + SHIFT + S",
+    kbScreenshotFreeze = "SUPER + SHIFT + CTRL + S",
     kbScreenshotRegion = "SUPER + SHIFT + ALT + S",
     -- kbRecord = "CTRL + ALT + R",
     -- kbRecordSound = "SUPER + ALT + R",
@@ -109,7 +114,7 @@ return {
     kbMediaNext = "CTRL + SUPER + Equal",
     kbMediaPrev = "CTRL + SUPER + Minus",
     kbMediaStop = "CTRL + SUPER + Backspace",
-    kbVolumeMute = "SUPER + SHIFT + M",
+    kbVolumeMute = "CTRL + SUPER + M",
 
     -- Misc
     kbLauncher = "SUPER + Space",

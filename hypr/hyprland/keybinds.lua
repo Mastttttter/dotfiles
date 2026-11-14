@@ -151,8 +151,11 @@ create_bind(vars.kbCloseWindow, hl.dsp.window.close())
 create_bind(vars.kbSpecialWs, fn.toggle("specialws"))
 create_bind(vars.kbSystemMonitorWs, fn.toggle("sysmon"))
 create_bind(vars.kbMusicWs, fn.toggle("music"))
+create_bind(vars.kbMoveWinToWsMusic, hl.dsp.window.move({ workspace = "special:music" }))
 create_bind(vars.kbCommunicationWs, fn.toggle("communication"))
+create_bind(vars.kbMoveWinToWsCommunication, hl.dsp.window.move({ workspace = "special:communication" }))
 create_bind(vars.kbTodoWs, fn.toggle("todo"))
+create_bind(vars.kbMoveWinToWsTodo, hl.dsp.window.move({ workspace = "special:todo" }))
 
 -- Apps
 create_bind(vars.kbTerminal, hl.dsp.exec_cmd(vars.terminal))
