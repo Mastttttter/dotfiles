@@ -58,8 +58,8 @@ if type(overrides) == "table" then
 end
 
 hl.monitor({
-    output = "DP-2",
-    mode = "1920x1080@60",
+    output = "DP-9",
+    mode = "1920x1080@180",
     position = "auto",
     scale = 1,
 })
@@ -69,7 +69,7 @@ hl.monitor({
     output = "eDP-2",
     mode = "1920x1080@60",
     position = "auto",
-    mirror = "DP-2",
+    mirror = "DP-9",
     scale = 1,
 })
 
